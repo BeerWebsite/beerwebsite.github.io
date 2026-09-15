@@ -82,7 +82,7 @@ footer{background:#1c261f;color:#dfe6df;padding:35px 6%;font-family:Arial,sans-s
 </main>
 <footer><strong>Old Codgers &amp; Other Beer Drinkers</strong><br>Independent, community-minded and unapologetically fond of a good pint. <span style="float:right">Drink responsibly.</span></footer>
 <script>
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyqV0Io5iRedFHsMiDNjmGv5Cw5jky-_74UqVS5ydKU886QRysndGrPqZ7h3CwfUHL9/exec";
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGH5o7AF-Yi9U-ZPU9aZs0uyuAsaT8Q33onW049PLIRG9pCFgVjNevXPI8OmGtzQh7Iw/exec";
 const form = document.getElementById("beerForm");
 const entries = document.getElementById("entries");
 
@@ -138,15 +138,18 @@ form.addEventListener("submit", async e => {
   };
 
   try {
+    // Send as a standard HTML form-style POST. This avoids the browser CORS
+    // preflight that can prevent Google Apps Script web apps receiving JSON.
+    const body = new URLSearchParams(data);
     await fetch(APPS_SCRIPT_URL, {
       method: "POST",
-      body: JSON.stringify(data),
+      body: body,
       mode: "no-cors"
     });
     showMessage("Cheers! Your beer has been submitted for approval.", true);
     form.reset();
     document.getElementById("r5").checked = true;
-    await loadApprovedBeers();
+    setTimeout(loadApprovedBeers, 1000);
   } catch (error) {
     showMessage("Sorry, the beer could not be submitted. Please try again.", false);
   } finally {
