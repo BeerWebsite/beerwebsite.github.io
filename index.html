@@ -94,6 +94,7 @@ footer{background:#1c261f;color:#dfe6df;padding:35px 6%;font-family:Arial,sans-s
 <footer><strong>Old Codgers &amp; Other Beer Drinkers</strong><br>Independent, community-minded and unapologetically fond of a good pint. <span style="float:right">Drink responsibly.</span></footer>
 <script>
 const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGH5o7AF-Yi9U-ZPU9aZs0uyuAsaT8Q33onW049PLIRG9pCFgVjNevXPI8OmGtzQh7Iw/exec";
+const IS_LIVE_SITE = window.location.hostname === "beerwebsite.github.io";
 const form = document.getElementById("beerForm");
 const entries = document.getElementById("entries");
 
@@ -127,9 +128,20 @@ function formatDiaryDate(value) {
 }
 
 function renderApprovedBeers() {
-  const beers = selectedCounty === "All"
+  const filteredBeers = selectedCounty === "All"
     ? allApprovedBeers
     : allApprovedBeers.filter(x => String(x.county || "").toLowerCase() === selectedCounty.toLowerCase());
+
+  // Always show the most recently logged beer first.
+  const beers = [...filteredBeers].sort((a, b) => {
+    const dateA = new Date(a.date).getTime();
+    const dateB = new Date(b.date).getTime();
+
+    if (Number.isNaN(dateA) && Number.isNaN(dateB)) return 0;
+    if (Number.isNaN(dateA)) return 1;
+    if (Number.isNaN(dateB)) return -1;
+    return dateB - dateA;
+  });
 
   if (!beers.length) {
     entries.innerHTML = selectedCounty === "All"
@@ -174,6 +186,12 @@ document.querySelectorAll(".diary-filter").forEach(button => {
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
+
+  if (!IS_LIVE_SITE) {
+    showMessage("Beer logging is available on the published website.", false);
+    return;
+  }
+
   const button = form.querySelector("button[type=submit]");
   const originalText = button.textContent;
   button.disabled = true;
@@ -209,6 +227,10 @@ form.addEventListener("submit", async e => {
   }
 });
 
-loadApprovedBeers();
+if (IS_LIVE_SITE) {
+  loadApprovedBeers();
+} else {
+  entries.innerHTML = "<p>The live beer diary appears on the published website.</p>";
+}
 </script>
 </body></html>
