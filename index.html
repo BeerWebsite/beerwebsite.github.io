@@ -1,236 +1,126 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Old Codgers &amp; Other Beer Drinkers</title>
-<meta name="description" content="English beers, real ales, pubs and breweries across Derbyshire, Leicestershire, Lincolnshire, Nottinghamshire and Rutland.">
-<style>
-:root{--ink:#1d241f;--cream:#f5efe2;--paper:#fffaf0;--amber:#b56a19;--dark:#29382f;--muted:#687066;--line:#ded4c2}
-*{box-sizing:border-box} body{margin:0;font-family:Georgia,serif;background:var(--cream);color:var(--ink);line-height:1.55}
-header{background:var(--dark);color:#fff;padding:18px 6%;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0002}
-nav{display:flex;align-items:center;justify-content:space-between;gap:20px} nav a{color:#fff;text-decoration:none;margin-left:18px;font-family:Arial,sans-serif;font-size:.9rem}
-.brand{font-weight:bold;font-size:1.25rem}.hero{padding:82px 6%;background:linear-gradient(120deg,#26362cdd,#5d3d1ddd),url('https://images.unsplash.com/photo-1515003197210-e0cd71810b5f?auto=format&fit=crop&w=1800&q=80') center/cover;color:#fff}
-.hero-inner{max-width:850px}.eyebrow{text-transform:uppercase;letter-spacing:.16em;font:700 .75rem Arial;color:#f4c57a}
-h1{font-size:clamp(3rem,7vw,6.2rem);line-height:.95;margin:15px 0 22px}.hero p{font-size:1.25rem;max-width:700px}
-.btn{display:inline-block;background:var(--amber);color:#fff;padding:12px 18px;border-radius:5px;text-decoration:none;font:700 .9rem Arial;margin:8px 8px 0 0}
-.btn.alt{background:#ffffff18;border:1px solid #ffffff55}
-section{padding:65px 6%;max-width:1200px;margin:auto}.section-head{display:flex;justify-content:space-between;align-items:end;gap:30px;margin-bottom:28px}h2{font-size:2.4rem;line-height:1.05;margin:0}.lede{color:var(--muted);max-width:650px}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{background:var(--paper);padding:25px;border:1px solid var(--line);border-radius:8px;box-shadow:0 5px 20px #4737190d}.card h3{margin-top:0}.tag{display:inline-block;background:#ead9b9;padding:4px 9px;border-radius:99px;font:700 .72rem Arial;text-transform:uppercase;margin:3px}
-.region{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding:15px 0;font-size:1.1rem}
-.tracker{background:var(--dark);color:#fff;border-radius:12px;padding:35px}.tracker h2{color:#fff}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:25px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font:700 .78rem Arial;text-transform:uppercase;letter-spacing:.04em;color:#d9dfd9}input,select,textarea{padding:12px;border-radius:5px;border:1px solid #ffffff35;background:#fff;color:var(--ink);font:inherit}textarea{min-height:90px}
-.rating{display:flex;gap:5px;direction:rtl;justify-content:flex-end}.rating input{display:none}.rating label{font-size:1.7rem;color:#aaa;cursor:pointer}.rating label:hover,.rating label:hover~label,.rating input:checked~label{color:#e5a735}
-.entries{margin-top:30px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.entry{background:#fff;color:var(--ink);padding:22px;border-radius:9px;border:1px solid #e6ddcc;box-shadow:0 4px 16px #0000000d}.entry strong{font-size:1.35rem}.meta{font:700 .76rem Arial;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.entry-date{font:700 .76rem Arial;color:var(--muted);margin-top:10px}.entry-note{margin:10px 0 0}.diary-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.diary-tools button{border:1px solid #ffffff45;background:#ffffff12;color:#fff;padding:8px 12px;border-radius:99px;cursor:pointer;font:700 .78rem Arial}.diary-tools button.active{background:var(--amber);border-color:var(--amber)}@media(max-width:800px){.entries{grid-template-columns:1fr}}
-footer{background:#1c261f;color:#dfe6df;padding:35px 6%;font-family:Arial,sans-serif}footer a{color:#f0c77d}
-@media(max-width:800px){nav a{display:none}.grid{grid-template-columns:1fr}.form{grid-template-columns:1fr}.field.full{grid-column:auto}.hero{padding:60px 6%}}
-</style>
-</head>
-<body>
-<header><nav><div class="brand">🍺 Old Codgers &amp; Other Beer Drinkers</div><div><a href="#ale">The Ale Trail</a><a href="#tracker">Track a Pint</a><a href="#links">Good Beer Links</a></div></nav></header>
-
-<main>
-<section class="hero"><div class="hero-inner">
-<div class="eyebrow">Derbyshire · Leicestershire · Lincolnshire · Nottinghamshire · Rutland</div>
-<h1>Good beer. Proper pubs. Our patch.</h1>
-<p>A celebration of English beer and real ale, with a particular fondness for the breweries, taprooms and traditional pubs of the East Midlands.</p>
-<a class="btn" href="#tracker">Log your latest pint</a><a class="btn alt" href="#ale">Explore the region</a>
-</div></section>
-
-<section id="tracker">
-<div class="tracker">
-    <div class="eyebrow">Community beer diary</div><h2>Our Live Beer Diary</h2>
-    <p>See what fellow beer drinkers have been enjoying around the East Midlands. New pints appear here once approved.</p>
-    <div class="diary-tools">
-      <button type="button" class="diary-filter active" data-county="All">All counties</button>
-      <button type="button" class="diary-filter" data-county="Derbyshire">Derbyshire</button>
-      <button type="button" class="diary-filter" data-county="Leicestershire">Leicestershire</button>
-      <button type="button" class="diary-filter" data-county="Lincolnshire">Lincolnshire</button>
-      <button type="button" class="diary-filter" data-county="Nottinghamshire">Nottinghamshire</button>
-      <button type="button" class="diary-filter" data-county="Rutland">Rutland</button>
-    </div>
-    <h3 style="margin:30px 0 0;color:#fff">Log a pint</h3>
-    <p>Add your latest beer, give it a rating, and leave a note for the next person looking for something good.</p>
-    <form id="beerForm" class="form">
-<div class="field"><label>Beer</label><input id="beer" required placeholder="e.g. Best Bitter"></div>
-<div class="field"><label>Brewery</label><input id="brewery" required placeholder="e.g. Castle Rock"></div>
-<div class="field"><label>Pub / venue</label><input id="pub" placeholder="Where did you drink it?"></div>
-<div class="field"><label>County</label><select id="county"><option>Derbyshire</option><option>Leicestershire</option><option>Lincolnshire</option><option>Nottinghamshire</option><option>Rutland</option><option>Other</option></select></div>
-<div class="field full"><label>Rating</label><div class="rating">
-<input type="radio" id="r5" name="rating" value="5" checked><label for="r5">★</label>
-<input type="radio" id="r4" name="rating" value="4"><label for="r4">★</label>
-<input type="radio" id="r3" name="rating" value="3"><label for="r3">★</label>
-<input type="radio" id="r2" name="rating" value="2"><label for="r2">★</label>
-<input type="radio" id="r1" name="rating" value="1"><label for="r1">★</label>
-</div></div>
-<div class="field full"><label>Your tasting note</label><textarea id="note" placeholder="Malty, citrusy, dry finish... Would you recommend it?"></textarea></div>
-<div class="field full"><button class="btn" type="submit">Add to the beer diary</button></div>
-</form>
-<div id="entries" class="entries"></div>
-</div>
-</section>
-
-
-<section id="ale">
-<div class="section-head"><div><div class="eyebrow">Start local</div><h2>Five counties, countless pints.</h2></div><p class="lede">Use this as a jumping-off point for discovering cask ale around the East Midlands. CAMRA's regional coverage spans Derbyshire, Leicestershire, Lincolnshire, Nottinghamshire and Rutland.</p></div>
-<div class="grid">
-<div class="card"><span class="tag">Derbyshire</span><h3>From Derby to the Peaks</h3><p>Traditional bitters, pale ales and modern cask beers sit alongside some of the region's best-known pub traditions.</p></div>
-<div class="card"><span class="tag">Nottinghamshire</span><h3>Nottingham & beyond</h3><p>Explore independent breweries, historic pubs and a lively local CAMRA scene.</p></div>
-<div class="card"><span class="tag">Leicestershire</span><h3>Charnwood country</h3><p>From Loughborough to Leicester, look for local brewery taprooms and county-wide cask favourites.</p></div>
-<div class="card"><span class="tag">Lincolnshire</span><h3>Fenland to the coast</h3><p>Keep an eye out for village pubs, Lincolnshire brewers and seasonal festival beers.</p></div>
-<div class="card"><span class="tag">Rutland</span><h3>Small county, big pints</h3><p>A compact part of the trail with plenty of reasons to make a dedicated pub crawl.</p></div>
-<div class="card"><span class="tag">The rule</span><h3>Drink local when you can</h3><p>Try the brewery on the bar, ask how the cask is tasting, and tell us what you think.</p></div>
-</div>
-</section>
-
-<section id="links">
-<div class="section-head"><div><div class="eyebrow">Useful resources</div><h2>Follow the trail.</h2></div><p class="lede">External links are provided for discovery, pub guides, beer information and local CAMRA activity.</p></div>
-<div class="grid">
-<div class="card"><h3>CAMRA East Midlands</h3><p>Regional branches, pub guides, brewery information and local beer activity.</p><a class="btn" href="https://eastmidlands.camra.org.uk/" target="_blank" rel="noopener">Visit CAMRA East Midlands</a></div>
-<div class="card"><h3>CAMRA beers & breweries</h3><p>Search CAMRA's national database of beers and breweries and browse beer styles.</p><a class="btn" href="https://camra.org.uk/beers" target="_blank" rel="noopener">Browse CAMRA beers</a></div>
-<div class="card"><h3>Nottingham CAMRA</h3><p>Local pub, brewery, beer festival and Nottinghamshire-focused information.</p><a class="btn" href="https://nottingham.camra.org.uk/" target="_blank" rel="noopener">Visit Nottingham CAMRA</a></div>
-</div>
-</section>
-</main>
-<footer><strong>Old Codgers &amp; Other Beer Drinkers</strong><br>Independent, community-minded and unapologetically fond of a good pint. <span style="float:right">Drink responsibly.</span></footer>
-<script>
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGH5o7AF-Yi9U-ZPU9aZs0uyuAsaT8Q33onW049PLIRG9pCFgVjNevXPI8OmGtzQh7Iw/exec";
-const IS_LIVE_SITE = window.location.hostname === "beerwebsite.github.io";
-const form = document.getElementById("beerForm");
-const entries = document.getElementById("entries");
-
-function escapeHtml(s) {
-  return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
-}
-
-function showMessage(message, success = true) {
-  let box = document.getElementById("submitMessage");
-  if (!box) {
-    box = document.createElement("div");
-    box.id = "submitMessage";
-    box.style.marginTop = "15px";
-    box.style.padding = "12px";
-    box.style.borderRadius = "5px";
-    form.after(box);
-  }
-  box.style.background = success ? "#d9ead3" : "#f4cccc";
-  box.style.color = "#1d241f";
-  box.textContent = message;
-}
-
-let allApprovedBeers = [];
-let selectedCounty = "All";
-
-function formatDiaryDate(value) {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return String(value);
-  return date.toLocaleDateString("en-GB", {day:"numeric", month:"short", year:"numeric"});
-}
-
-function renderApprovedBeers() {
-  const filteredBeers = selectedCounty === "All"
-    ? allApprovedBeers
-    : allApprovedBeers.filter(x => String(x.county || "").toLowerCase() === selectedCounty.toLowerCase());
-
-  // Always show the most recently logged beer first.
-  const beers = [...filteredBeers].sort((a, b) => {
-    const dateA = new Date(a.date).getTime();
-    const dateB = new Date(b.date).getTime();
-
-    if (Number.isNaN(dateA) && Number.isNaN(dateB)) return 0;
-    if (Number.isNaN(dateA)) return 1;
-    if (Number.isNaN(dateB)) return -1;
-    return dateB - dateA;
-  });
-
-  if (!beers.length) {
-    entries.innerHTML = selectedCounty === "All"
-      ? "<p>No approved pints logged yet. Be the first.</p>"
-      : `<p>No approved pints logged in ${escapeHtml(selectedCounty)} yet.</p>`;
-    return;
-  }
-
-  entries.innerHTML = beers.map(x => {
-    const rating = Math.min(5, Math.max(0, Number(x.rating) || 0));
-    return `
-      <article class="entry">
-        <div class="meta">${escapeHtml(x.county || "County not specified")} · ${escapeHtml(x.pub || "Venue not specified")}</div>
-        <div style="margin-top:6px"><strong>${escapeHtml(x.beer || "")}</strong></div>
-        <div style="margin-top:4px">${"★".repeat(rating)}${"☆".repeat(5-rating)} <span class="meta">${rating}/5</span></div>
-        <p class="entry-note">${escapeHtml(x.note || "No tasting note added.")}</p>
-        <div class="entry-date">${formatDiaryDate(x.date)}</div>
-        <div class="meta" style="margin-top:4px">Brewery: ${escapeHtml(x.brewery || "Not specified")}</div>
-      </article>`;
-  }).join("");
-}
-
-async function loadApprovedBeers() {
+function doPost(e) {
   try {
-    const response = await fetch(APPS_SCRIPT_URL + "?action=list");
-    const beers = await response.json();
-    allApprovedBeers = Array.isArray(beers) ? beers : [];
-    renderApprovedBeers();
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = spreadsheet.getSheets()[0];
+    const data = e.parameter;
+
+    if (!data.beer || !data.brewery) {
+      throw new Error("Beer and brewery are required.");
+    }
+
+    let imageUrl = "";
+
+    // Optional beer photo: JPG/JPEG or PNG, maximum 5 MB.
+    if (data.imageData) {
+      const allowedTypes = ["image/jpeg", "image/png"];
+
+      if (!allowedTypes.includes(String(data.imageType || "").toLowerCase())) {
+        throw new Error("Only JPG and PNG images are allowed.");
+      }
+
+      // Base64 data URLs are sent by the website.
+      const match = String(data.imageData).match(/^data:(image\/(?:jpeg|png));base64,(.+)$/i);
+      if (!match) {
+        throw new Error("The uploaded image could not be read.");
+      }
+
+      const base64 = match[2];
+      const estimatedBytes = Math.floor((base64.length * 3) / 4);
+
+      if (estimatedBytes > 5 * 1024 * 1024) {
+        throw new Error("The uploaded image is larger than 5 MB.");
+      }
+
+      // Find the existing Google Drive folder named exactly:
+      // Beer website images
+      const folders = DriveApp.getFoldersByName("Beer website images");
+      if (!folders.hasNext()) {
+        throw new Error('Google Drive folder "Beer website images" was not found.');
+      }
+
+      const folder = folders.next();
+      const bytes = Utilities.base64Decode(base64);
+      const safeOriginalName = String(data.imageName || "beer-photo")
+        .replace(/[^a-zA-Z0-9._-]/g, "_");
+      const filename = new Date().getTime() + "_" + safeOriginalName;
+
+      const blob = Utilities.newBlob(
+        bytes,
+        String(data.imageType).toLowerCase(),
+        filename
+      );
+
+      const file = folder.createFile(blob);
+
+      // The image must be viewable by visitors to the public website.
+      file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
+
+      imageUrl = "https://drive.google.com/uc?export=view&id=" + file.getId();
+    }
+
+    // Columns:
+    // Date | Beer | Brewery | Pub / Venue | County | Rating | Tasting Note | Approved | Image URL
+    sheet.appendRow([
+      new Date(),
+      data.beer || "",
+      data.brewery || "",
+      data.pub || "",
+      data.county || "",
+      data.rating || "",
+      data.note || "",
+      "NO",
+      imageUrl
+    ]);
+
+    return ContentService
+      .createTextOutput("OK")
+      .setMimeType(ContentService.MimeType.TEXT);
+
   } catch (error) {
-    entries.innerHTML = "<p>Beer recommendations will appear here once they have been approved.</p>";
+    return ContentService
+      .createTextOutput("ERROR: " + error.message)
+      .setMimeType(ContentService.MimeType.TEXT);
   }
 }
 
-document.querySelectorAll(".diary-filter").forEach(button => {
-  button.addEventListener("click", () => {
-    selectedCounty = button.dataset.county;
-    document.querySelectorAll(".diary-filter").forEach(b => b.classList.remove("active"));
-    button.classList.add("active");
-    renderApprovedBeers();
-  });
-});
-
-form.addEventListener("submit", async e => {
-  e.preventDefault();
-
-  if (!IS_LIVE_SITE) {
-    showMessage("Beer logging is available on the published website.", false);
-    return;
-  }
-
-  const button = form.querySelector("button[type=submit]");
-  const originalText = button.textContent;
-  button.disabled = true;
-  button.textContent = "Sending…";
-
-  const data = {
-    beer: document.getElementById("beer").value.trim(),
-    brewery: document.getElementById("brewery").value.trim(),
-    pub: document.getElementById("pub").value.trim(),
-    county: document.getElementById("county").value,
-    rating: Number(document.querySelector('input[name="rating"]:checked').value),
-    note: document.getElementById("note").value.trim()
-  };
-
+function doGet(e) {
   try {
-    // Send as a standard HTML form-style POST. This avoids the browser CORS
-    // preflight that can prevent Google Apps Script web apps receiving JSON.
-    const body = new URLSearchParams(data);
-    await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      body: body,
-      mode: "no-cors"
-    });
-    showMessage("Cheers! Your beer has been submitted for approval.", true);
-    form.reset();
-    document.getElementById("r5").checked = true;
-    setTimeout(loadApprovedBeers, 1000);
-  } catch (error) {
-    showMessage("Sorry, the beer could not be submitted. Please try again.", false);
-  } finally {
-    button.disabled = false;
-    button.textContent = originalText;
-  }
-});
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    const sheet = spreadsheet.getSheets()[0];
 
-if (IS_LIVE_SITE) {
-  loadApprovedBeers();
-} else {
-  entries.innerHTML = "<p>The live beer diary appears on the published website.</p>";
+    const values = sheet.getDataRange().getDisplayValues();
+
+    if (values.length <= 1) {
+      return ContentService
+        .createTextOutput("[]")
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+
+    values.shift();
+
+    const approved = values
+      .filter(row => String(row[7]).toUpperCase() === "YES")
+      .map(row => ({
+        date: row[0],
+        beer: row[1],
+        brewery: row[2],
+        pub: row[3],
+        county: row[4],
+        rating: row[5],
+        note: row[6],
+        imageUrl: row[8] || ""
+      }));
+
+    return ContentService
+      .createTextOutput(JSON.stringify(approved))
+      .setMimeType(ContentService.MimeType.JSON);
+
+  } catch (error) {
+    return ContentService
+      .createTextOutput(JSON.stringify({
+        success: false,
+        message: error.message
+      }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
 }
-</script>
-</body></html>
