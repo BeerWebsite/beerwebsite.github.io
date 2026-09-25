@@ -302,5 +302,77 @@ if (IS_LIVE_SITE) {
 } else {
   entries.innerHTML = "<p>The live beer diary appears on the published website.</p>";
 }
+<script>
+// 1. Set your exact Apps Script URL here
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGH5o7AF-Yi9U-ZPU9aZs0uyuAsaT8Q33onW049PLIRG9pCFgVjNevXPI8OmGtzQh7Iw/exec";
+
+document.getElementById('beerForm').addEventListener('submit', async function(e) {
+  e.preventDefault(); // Stop the form from submitting the old, broken way
+
+  const form = e.target;
+  const submitButton = form.querySelector('button[type="submit"]');
+  if (submitButton) submitButton.disabled = true; // Prevent double submissions
+
+  // Create an object to hold all the form data
+  const payload = {};
+  const formData = new FormData(form);
+  
+  // Read standard text fields (beer, brewery, pub, county, rating, note)
+  formData.forEach((value, key) => {
+    if (key !== 'imageData') { // Skip the file input for a moment
+      payload[key] = value;
+    }
+  });
+
+  // Find the file input field
+  const fileInput = form.querySelector('input[type="file"]');
+  const file = fileInput ? fileInput.files[0] : null;
+
+  // Function to process and send the data
+  const sendData = async (dataObject) => {
+    try {
+      // Convert object properties to URL-encoded parameters for e.parameter
+      const searchParams = new URLSearchParams(dataObject);
+
+      const response = await fetch(APPS_SCRIPT_URL, {
+        method: "POST",
+        body: searchParams,
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      });
+
+      const result = await response.text();
+      
+      if (result === "OK") {
+        alert("Beer entry successfully recorded!");
+        form.reset();
+      } else {
+        alert("Server error: " + result);
+      }
+    } catch (err) {
+      alert("Submission failed: " + err.message);
+    } finally {
+      if (submitButton) submitButton.disabled = false;
+    }
+  };
+
+  // If a photo was selected, convert it to Base64 first
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = async function(event) {
+      payload.imageData = event.target.result; // This is the data:image/png;base64,... URL
+      payload.imageName = file.name;
+      payload.imageType = file.type;
+      
+      await sendData(payload); // Send everything together
+    };
+    reader.readAsDataURL(file);
+  } else {
+    // No photo attached, just send the text data
+    await sendData(payload);
+  }
+});
 </script>
+
 </body></html>
