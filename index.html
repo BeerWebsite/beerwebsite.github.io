@@ -19,6 +19,9 @@ section{padding:65px 6%;max-width:1200px;margin:auto}.section-head{display:flex;
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}.card{background:var(--paper);padding:25px;border:1px solid var(--line);border-radius:8px;box-shadow:0 5px 20px #4737190d}.card h3{margin-top:0}.tag{display:inline-block;background:#ead9b9;padding:4px 9px;border-radius:99px;font:700 .72rem Arial;text-transform:uppercase;margin:3px}
 .region{display:flex;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding:15px 0;font-size:1.1rem}
 .tracker{background:var(--dark);color:#fff;border-radius:12px;padding:35px}.tracker h2{color:#fff}.form{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;margin-top:25px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}label{font:700 .78rem Arial;text-transform:uppercase;letter-spacing:.04em;color:#d9dfd9}input,select,textarea{padding:12px;border-radius:5px;border:1px solid #ffffff35;background:#fff;color:var(--ink);font:inherit}textarea{min-height:90px}
+.photo-help{font:0.78rem Arial,sans-serif;color:#d9dfd9;margin-top:4px}
+.photo-preview{display:none;margin-top:10px;max-width:220px;border-radius:8px;border:1px solid #ffffff35}
+.entry-photo{width:100%;max-height:240px;object-fit:cover;border-radius:7px;margin-bottom:12px}
 .rating{display:flex;gap:5px;direction:rtl;justify-content:flex-end}.rating input{display:none}.rating label{font-size:1.7rem;color:#aaa;cursor:pointer}.rating label:hover,.rating label:hover~label,.rating input:checked~label{color:#e5a735}
 .entries{margin-top:30px;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}.entry{background:#fff;color:var(--ink);padding:22px;border-radius:9px;border:1px solid #e6ddcc;box-shadow:0 4px 16px #0000000d}.entry strong{font-size:1.35rem}.meta{font:700 .76rem Arial;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}.entry-date{font:700 .76rem Arial;color:var(--muted);margin-top:10px}.entry-note{margin:10px 0 0}.diary-tools{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.diary-tools button{border:1px solid #ffffff45;background:#ffffff12;color:#fff;padding:8px 12px;border-radius:99px;cursor:pointer;font:700 .78rem Arial}.diary-tools button.active{background:var(--amber);border-color:var(--amber)}@media(max-width:800px){.entries{grid-template-columns:1fr}}
 footer{background:#1c261f;color:#dfe6df;padding:35px 6%;font-family:Arial,sans-serif}footer a{color:#f0c77d}
@@ -30,7 +33,7 @@ footer{background:#1c261f;color:#dfe6df;padding:35px 6%;font-family:Arial,sans-s
 
 <main>
 <section class="hero"><div class="hero-inner">
-<div class="eyebrow">Derbyshire · Leicestershire · Lincolnshire · Nottinghamshire · Rutland</div>
+<div class="eyebrow">Grimsby · Cleethorpes · Sheffield · Lincolnshire · Nottinghamshire</div>
 <h1>Good beer. Proper pubs. Our patch.</h1>
 <p>A celebration of English beer and real ale, with a particular fondness for the breweries, taprooms and traditional pubs of the East Midlands.</p>
 <a class="btn" href="#tracker">Log your latest pint</a><a class="btn alt" href="#ale">Explore the region</a>
@@ -62,6 +65,12 @@ footer{background:#1c261f;color:#dfe6df;padding:35px 6%;font-family:Arial,sans-s
 <input type="radio" id="r2" name="rating" value="2"><label for="r2">★</label>
 <input type="radio" id="r1" name="rating" value="1"><label for="r1">★</label>
 </div></div>
+<div class="field full">
+<label>Upload beer photo</label>
+<input id="beerPhoto" type="file" accept="image/jpeg,image/png,.jpg,.jpeg,.png">
+<div class="photo-help">Optional. JPG or PNG only. Maximum 5 MB.</div>
+<img id="photoPreview" class="photo-preview" alt="Selected beer photo preview">
+</div>
 <div class="field full"><label>Your tasting note</label><textarea id="note" placeholder="Malty, citrusy, dry finish... Would you recommend it?"></textarea></div>
 <div class="field full"><button class="btn" type="submit">Add to the beer diary</button></div>
 </form>
@@ -97,6 +106,8 @@ const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwGH5o7AF-Yi9U-
 const IS_LIVE_SITE = window.location.hostname === "beerwebsite.github.io";
 const form = document.getElementById("beerForm");
 const entries = document.getElementById("entries");
+const beerPhoto = document.getElementById("beerPhoto");
+const photoPreview = document.getElementById("photoPreview");
 
 function escapeHtml(s) {
   return String(s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[c]));
@@ -115,6 +126,42 @@ function showMessage(message, success = true) {
   box.style.background = success ? "#d9ead3" : "#f4cccc";
   box.style.color = "#1d241f";
   box.textContent = message;
+}
+
+beerPhoto.addEventListener("change", () => {
+  const file = beerPhoto.files[0];
+  photoPreview.style.display = "none";
+
+  if (!file) return;
+
+  const allowed = ["image/jpeg", "image/png"];
+  if (!allowed.includes(file.type)) {
+    beerPhoto.value = "";
+    showMessage("Please choose a JPG or PNG image only.", false);
+    return;
+  }
+
+  if (file.size > 5 * 1024 * 1024) {
+    beerPhoto.value = "";
+    showMessage("Please choose an image smaller than 5 MB.", false);
+    return;
+  }
+
+  photoPreview.src = URL.createObjectURL(file);
+  photoPreview.style.display = "block";
+});
+
+function readPhotoAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    if (!file) {
+      resolve(null);
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
 }
 
 let allApprovedBeers = [];
@@ -154,6 +201,7 @@ function renderApprovedBeers() {
     const rating = Math.min(5, Math.max(0, Number(x.rating) || 0));
     return `
       <article class="entry">
+        ${x.imageUrl ? `<img class="entry-photo" src="${escapeHtml(x.imageUrl)}" alt="${escapeHtml(x.beer || "Beer")}">` : ""}
         <div class="meta">${escapeHtml(x.county || "County not specified")} · ${escapeHtml(x.pub || "Venue not specified")}</div>
         <div style="margin-top:6px"><strong>${escapeHtml(x.beer || "")}</strong></div>
         <div style="margin-top:4px">${"★".repeat(rating)}${"☆".repeat(5-rating)} <span class="meta">${rating}/5</span></div>
@@ -197,18 +245,38 @@ form.addEventListener("submit", async e => {
   button.disabled = true;
   button.textContent = "Sending…";
 
+  const photoFile = beerPhoto.files[0];
+
+  if (photoFile) {
+    if (!["image/jpeg", "image/png"].includes(photoFile.type)) {
+      showMessage("Please choose a JPG or PNG image only.", false);
+      button.disabled = false;
+      button.textContent = originalText;
+      return;
+    }
+    if (photoFile.size > 5 * 1024 * 1024) {
+      showMessage("Please choose an image smaller than 5 MB.", false);
+      button.disabled = false;
+      button.textContent = originalText;
+      return;
+    }
+  }
+
   const data = {
     beer: document.getElementById("beer").value.trim(),
     brewery: document.getElementById("brewery").value.trim(),
     pub: document.getElementById("pub").value.trim(),
     county: document.getElementById("county").value,
     rating: Number(document.querySelector('input[name="rating"]:checked').value),
-    note: document.getElementById("note").value.trim()
+    note: document.getElementById("note").value.trim(),
+    imageData: await readPhotoAsBase64(photoFile),
+    imageName: photoFile ? photoFile.name : "",
+    imageType: photoFile ? photoFile.type : ""
   };
 
   try {
-    // Send as a standard HTML form-style POST. This avoids the browser CORS
-    // preflight that can prevent Google Apps Script web apps receiving JSON.
+    // Send as a standard HTML form-style POST. The Apps Script stores the
+    // optional image in Google Drive and records its public URL in the sheet.
     const body = new URLSearchParams(data);
     await fetch(APPS_SCRIPT_URL, {
       method: "POST",
@@ -218,6 +286,8 @@ form.addEventListener("submit", async e => {
     showMessage("Cheers! Your beer has been submitted for approval.", true);
     form.reset();
     document.getElementById("r5").checked = true;
+    photoPreview.src = "";
+    photoPreview.style.display = "none";
     setTimeout(loadApprovedBeers, 1000);
   } catch (error) {
     showMessage("Sorry, the beer could not be submitted. Please try again.", false);
