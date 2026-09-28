@@ -279,10 +279,12 @@ form.addEventListener("submit", async e => {
     // Send as a standard HTML form-style POST. The Apps Script stores the
     // optional image in Google Drive and records its public URL in the sheet.
     const body = new URLSearchParams(data);
+    console.log("ABOUT TO SEND:", data);
+    
     await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      body: body,
-      mode: "no-cors"
+    method: "POST",
+    body: body,
+    mode: "no-cors"
     });
     showMessage("Cheers! Your beer has been submitted for approval.", true);
     form.reset();
