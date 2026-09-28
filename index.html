@@ -235,6 +235,7 @@ document.querySelectorAll(".diary-filter").forEach(button => {
 
 form.addEventListener("submit", async e => {
   e.preventDefault();
+console.log("SUBMIT EVENT FIRED");
 
   if (!IS_LIVE_SITE) {
     showMessage("Beer logging is available on the published website.", false);
