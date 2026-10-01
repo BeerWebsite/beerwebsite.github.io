@@ -280,8 +280,7 @@ console.log("SUBMIT EVENT FIRED");
     // Send as a standard HTML form-style POST. The Apps Script stores the
     // optional image in Google Drive and records its public URL in the sheet.
     const body = new URLSearchParams(data);
- console.log("ABOUT TO SEND:", data);
-console.log("ABOUT TO FETCH");
+console.log("ABOUT TO SEND:", data);
 
 await fetch(APPS_SCRIPT_URL, {
   method: "POST",
@@ -289,7 +288,6 @@ await fetch(APPS_SCRIPT_URL, {
   mode: "no-cors"
 });
 
-console.log("FETCH COMPLETED"); 
 {
     method: "POST",
     body: body,
