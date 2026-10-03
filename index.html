@@ -281,7 +281,6 @@ console.log("SUBMIT EVENT FIRED");
     // optional image in Google Drive and records its public URL in the sheet.
     const body = new URLSearchParams(data);
 console.log("ABOUT TO SEND:", data);
-
 await fetch(APPS_SCRIPT_URL, {
   method: "POST",
   body: body,
