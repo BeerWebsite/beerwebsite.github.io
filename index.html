@@ -222,7 +222,14 @@ function renderApprovedBeers() {
     const rating = Math.min(5, Math.max(0, Number(x.rating) || 0));
     return `
       <article class="entry">
-        ${x.imageUrl ? `<img class="entry-photo" src="${escapeHtml(x.imageUrl)}" alt="${escapeHtml(x.beer || "Beer")}">` : ""}
+        ${x.imageUrl ? `
+<img
+  class="entry-photo"
+  src="${escapeHtml(getDiaryImageUrl(x.imageUrl))}"
+  alt="${escapeHtml(x.beer || "Beer")}"
+  loading="lazy"
+  onerror="this.style.display='none';"
+>` : ""}
         <div class="meta">${escapeHtml(x.county || "County not specified")} · ${escapeHtml(x.pub || "Venue not specified")}</div>
         <div style="margin-top:6px"><strong>${escapeHtml(x.beer || "")}</strong></div>
         <div style="margin-top:4px">${"★".repeat(rating)}${"☆".repeat(5-rating)} <span class="meta">${rating}/5</span></div>
