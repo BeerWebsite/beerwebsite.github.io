@@ -168,6 +168,26 @@ function readPhotoAsBase64(file) {
 let allApprovedBeers = [];
 let selectedCounty = "All";
 
+function getDiaryImageUrl(url) {
+  if (!url) return "";
+
+  const value = String(url).trim();
+
+  // Convert a Google Drive file URL into a thumbnail URL
+  const match = value.match(
+    /(?:id=|\/d\/)([a-zA-Z0-9_-]{20,})/
+  );
+
+  if (match) {
+    return "https://drive.google.com/thumbnail?id=" +
+      match[1] +
+      "&sz=w1000";
+  }
+
+  // If it isn't a Google Drive URL, use it as supplied
+  return value;
+}
+    
 function formatDiaryDate(value) {
   if (!value) return "";
   const date = new Date(value);
