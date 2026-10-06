@@ -288,12 +288,24 @@ await fetch(APPS_SCRIPT_URL, {
   mode: "no-cors"
 });
 
-showMessage("Cheers! Your beer has been submitted for approval.", true);
-    form.reset();
-    document.getElementById("r5").checked = true;
-    photoPreview.src = "";
-    photoPreview.style.display = "none";
-    setTimeout(loadApprovedBeers, 1000);
+showMessage(
+  "Cheers! Your beer has been submitted for approval.",
+  true
+);
+
+form.reset();
+
+document.getElementById("r5").checked = true;
+
+photoPreview.src = "";
+
+photoPreview.style.display = "none";
+
+// Give the success message time to appear,
+// then refresh the website.
+setTimeout(() => {
+  window.location.reload();
+}, 2000);
   } catch (error) {
     showMessage("Sorry, the beer could not be submitted. Please try again.", false);
   } finally {
