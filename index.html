@@ -17,6 +17,198 @@
   --white: #FFFFFF;
   --border: #D8CCB2;
 }
+/* =========================================
+   TRADITIONAL ALE HOUSE COLOUR PALETTE
+   ========================================= */
+
+body {
+  background: var(--cream);
+  color: var(--charcoal);
+}
+
+
+/* Main header */
+
+header {
+  background: var(--forest-green);
+  color: var(--pale-cream);
+}
+
+header h1,
+header h2,
+header p {
+  color: var(--pale-cream);
+}
+
+
+/* Navigation */
+
+nav {
+  background: var(--deep-green);
+}
+
+nav a {
+  color: var(--pale-cream);
+}
+
+nav a:hover,
+nav a:focus {
+  color: var(--amber);
+}
+
+
+/* Main sections */
+
+section {
+  background: var(--pale-cream);
+}
+
+
+/* Headings */
+
+h1,
+h2,
+h3 {
+  color: var(--forest-green);
+}
+
+
+/* Links */
+
+a {
+  color: var(--forest-green);
+}
+
+a:hover,
+a:focus {
+  color: var(--burgundy);
+}
+
+
+/* Buttons */
+
+button,
+input[type="submit"] {
+  background: var(--forest-green);
+  color: var(--white);
+  border: 2px solid var(--forest-green);
+}
+
+button:hover,
+button:focus,
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+  background: var(--deep-green);
+  border-color: var(--deep-green);
+}
+
+
+/* Form fields */
+
+input,
+select,
+textarea {
+  background: var(--white);
+  color: var(--charcoal);
+  border: 1px solid var(--border);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: 2px solid var(--amber);
+  outline-offset: 1px;
+  border-color: var(--forest-green);
+}
+
+
+/* Beer diary tiles */
+
+.entry-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  box-shadow: 0 3px 10px rgba(41, 40, 33, 0.10);
+}
+
+
+/* Beer name */
+
+.entry-card h3 {
+  color: var(--forest-green);
+}
+
+
+/* Beer metadata */
+
+.entry-card .meta {
+  color: #5E5A4F;
+}
+
+
+/* Rating */
+
+.entry-card .rating {
+  color: var(--amber);
+}
+
+
+/* Tasting note */
+
+.entry-card .note {
+  color: var(--charcoal);
+}
+
+
+/* Photo */
+
+.entry-photo {
+  display: block;
+  width: 100%;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+
+/* Ale trail / county sections */
+
+.trail-card {
+  background: var(--pale-cream);
+  border: 1px solid var(--border);
+}
+
+.trail-card h3 {
+  color: var(--forest-green);
+}
+
+
+/* Special burgundy accents */
+
+.badge,
+.highlight {
+  background: var(--burgundy);
+  color: var(--white);
+}
+
+
+/* Success message */
+
+.success,
+.message.success {
+  background: #E5EEDC;
+  color: var(--deep-green);
+  border: 1px solid #B7C9AA;
+}
+
+
+/* Error message */
+
+.error,
+.message.error {
+  background: #F2DFDC;
+  color: var(--burgundy);
+  border: 1px solid #D2AAA5;
+}
 *{box-sizing:border-box} body{margin:0;font-family:Georgia,serif;background:var(--cream);color:var(--ink);line-height:1.55}
 header{background:var(--dark);color:#fff;padding:18px 6%;position:sticky;top:0;z-index:10;box-shadow:0 2px 10px #0002}
 nav{display:flex;align-items:center;justify-content:space-between;gap:20px} nav a{color:#fff;text-decoration:none;margin-left:18px;font-family:Arial,sans-serif;font-size:.9rem}
